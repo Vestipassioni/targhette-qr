@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Targhette Multilingua</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f1e8;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.frase {
+    font-size: 27px;
+    line-height: 1.45;
+    font-weight: bold;
+    margin: 35px 0;
+}
+
+select {
+    font-size: 16px;
+    padding: 8px 12px;
+    margin-top: 20px;
+}
+
+.numero {
+    font-size: 13px;
+    color: #777;
+    margin-top: 30px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>❤️</h1>
+
+<div id="frase" class="frase"></div>
+
+<div>
+🌐 Lingua<br>
+
+<select id="language" onchange="cambiaLingua()">
+
+<option value="it">🇮🇹 Italiano</option>
+<option value="en">🇬🇧 English</option>
+
+</select>
+
+</div>
+
+<div id="numero" class="numero"></div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   FRASI DELLE TARGHETTE
+===================================== */
+
+const targhette = {
+
+"01": {
+
+it: "I migliori nonni del mondo abitano qui",
+
+en: "The best grandparents in the world live here"
+
+},
+
+
+"02": {
+
+it: "Casa dei nonni. Qui si viziano i nipoti",
+
+en: "Grandparents' house. Grandchildren get spoiled here"
+
+},
+
+
+"03": {
+
+it: "Grazie mamma per avermi dato le ali per volare e per avermi aiutato a rialzarmi quando cadevo...",
+
+en: "Thank you, Mom, for giving me wings to fly and for helping me get back up whenever I fell..."
+
+},
+
+
+"04": {
+
+it: "Non mi importa come siete... alti o bassi, magri o grossi, ricchi o poveri, tristi o allegri. Quel che conta per me è che voi siete la mia mamma e il mio papà.",
+
+en: "I don't care what you're like... tall or short, thin or big, rich or poor, sad or cheerful. What matters to me is that you are my mom and dad."
+
+},
+
+
+"05": {
+
+it: "Qui vive un gatto viziato",
+
+en: "A spoiled cat lives here"
+
+},
+
+
+"06": {
+
+it: "Qui vive un cane viziato",
+
+en: "A spoiled dog lives here"
+
+},
+
+
+"07": {
+
+it: "La miglior amica è colei che non giudica i tuoi sbagli, ascolta le tue parole e interpreta i tuoi silenzi. La miglior amica è colei che ti capisce prima ancora che tu possa parlare.",
+
+en: "A best friend is someone who doesn't judge your mistakes, listens to your words and understands your silences. A best friend understands you even before you can speak."
+
+},
+
+
+"08": {
+
+it: "Non esiste un'amica migliore di una sorella e non esiste una sorella migliore di te!",
+
+en: "There is no better friend than a sister, and there is no better sister than you!"
+
+},
+
+
+"09": {
+
+it: "Qui dorme la nostra principessa",
+
+en: "Our princess sleeps here"
+
+},
+
+
+"10": {
+
+it: "Qui dorme il nostro principe",
+
+en: "Our prince sleeps here"
+
+},
+
+
+"11": {
+
+it: "Ristorante da Nonna. Sempre aperto, ottima cucina. Prezzo: un bacio!!!",
+
+en: "Grandma's Restaurant. Always open, excellent food. Price: one kiss!!!"
+
+},
+
+
+"12": {
+
+it: "In questa casa abita una dolce signora e quel brontolone di suo marito.",
+
+en: "A sweet lady and her grumpy husband live in this house."
+
+}
+
+};
+
+
+/* =====================================
+   NUMERO TARGHETTA DALL'INDIRIZZO
+===================================== */
+
+const parametri = new URLSearchParams(window.location.search);
+
+let numeroTarghetta = parametri.get("t");
+
+
+/* Se nessun numero viene indicato,
+   mostra la targhetta 01 */
+
+if (!numeroTarghetta || !targhette[numeroTarghetta]) {
+
+numeroTarghetta = "01";
+
+}
+
+
+/* =====================================
+   RILEVAMENTO LINGUA TELEFONO
+===================================== */
+
+let linguaTelefono =
+(navigator.language || navigator.userLanguage || "en")
+.substring(0,2)
+.toLowerCase();
+
+
+/* Se la lingua non è disponibile
+   usa inglese */
+
+if (!targhette[numeroTarghetta][linguaTelefono]) {
+
+linguaTelefono = "en";
+
+}
+
+
+/* =====================================
+   VISUALIZZAZIONE
+===================================== */
+
+document.getElementById("language").value =
+linguaTelefono;
+
+
+function mostraFrase(lingua) {
+
+document.getElementById("frase").innerText =
+targhette[numeroTarghetta][lingua];
+
+document.getElementById("numero").innerText =
+"Targhetta " + numeroTarghetta;
+
+}
+
+
+function cambiaLingua() {
+
+const lingua =
+document.getElementById("language").value;
+
+mostraFrase(lingua);
+
+}
+
+
+mostraFrase(linguaTelefono);
+
+</script>
+
+</body>
+</html>
